@@ -1,1 +1,178 @@
-Hello World
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>JacobianChart</title>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+    <script type="text/javascript" src="JacobianData.js"></script>
+
+    <script type="text/javascript" src="JacobianChart.js"></script>
+	 <script type="text/javascript" src="JacobianChart_Visuals.js"></script>
+    <script type="text/javascript" src="JacobianChart_Handlers.js"></script>
+
+    <style>
+      #titleDiv {
+			background:#F7F2C5;
+      	width: 1600px;
+      	height: 30px;
+      	text-align: center;
+      }
+      #jacobianChart {
+        width: 1600px;
+        height: 830px;
+      }
+      #chart {
+        background-color: #F7F2C5;
+        width: 1000px;
+        height: 830px;
+        float: left;
+      }
+      #filterList {
+        background-color: #F7F2C5;
+        width: 280px;
+        height: 810px;
+        float: right;
+			padding: 10px;
+      }
+		#selectionInfo {
+      	background-color: #F7F2C5;
+      	width: 280px;
+      	height: 810px;
+			float: right;
+			padding: 10px;
+		}
+      circle {
+        stroke: none;
+        stroke-width: 0px;
+        r: 5px;
+        cursor: pointer;
+      }
+      circle.type1Corner{
+        fill: green;
+        fill-opacity: .8;
+      }
+      circle.primitive{
+        fill: red;
+        fill-opacity: .8;
+      }
+      circle.selectedPrimitive{
+        fill: #ff7f0e;
+        fill-opacity: .8;
+        r: 7px;
+      }
+      circle.possibleA0Prime{
+        fill: #228B22;
+        fill-opacity: .8;
+        r: 5px;
+        cursor: pointer;
+      }
+      circle.edgeEnd{
+        fill: #800080;
+        r: 5px;
+      }
+      circle.invalidEdgeEnd{
+        fill: none;
+        stroke: black;
+        stroke-width: 1px;
+        r: 5px;
+      }
+      circle.selectedEdgeEnd{
+        fill: blue;
+        r: 7px;
+      }
+      text.title {
+        fill: black;
+        font: 20px sans-serif;
+      }
+
+      text.axis {
+        fill: black;
+        font: 14px sans-serif;
+      }
+
+      text.tag {
+        fill: black;
+        font: 12px sans-serif;
+      }
+
+      text.cornerTag {
+        fill: black;
+        font: 14px sans-serif;
+      }
+
+      line.edgeLine {
+        stroke: black;
+        stroke-width: 1px;
+        stroke-opacity: .5;
+      }
+		.button{
+			font-size: 12px;
+		}
+
+		.tooltip {	
+			 position: absolute;	
+			 text-align: center;		
+			 padding: 2px;				
+			 font: 12px sans-serif;		
+			 background: lightsteelblue;	
+			 border: 0px;		
+			 border-radius: 8px;			
+			 pointer-events: none;			
+		}
+		.loader{
+			 border: 8px solid #f3f3f3; /* Light grey */
+			 border-top: 8px solid #3498db; /* Blue */
+			 border-bottom: 8px solid #3498db;
+			 border-radius: 50%;
+			 width: 8px;
+			 height: 8px;
+			 animation: spin 2s linear infinite;
+		}
+		@keyframes spin {
+			 0% { transform: rotate(0deg); }
+			 100% { transform: rotate(360deg); }
+		}
+    </style>
+	</head>
+	<body>
+		<div id="titleDiv"> <h2>The Shape of Possible Counterexamples </h2></div>
+		<div id="jacobianChart">
+		<div>
+			<div id="header" style="background:#F7F2C5;padding:5px;" >
+				<button id="loadDataButton" type="button" style="width:100px;height:20px;">Load Data </button>
+				<input id="loadDataInput" type="text" style="width:100px;height:15px;"> </input>
+				<div id="loadIcon" class="loader" style="display:none;"></div>
+				(Enter the max degree to show, maxdeg <= 50) &emsp; &emsp;
+				Visualization mode:
+				<select id="modeSelector">
+					<option selected> Chains</option> 
+					<option>PLLC </option>
+				</select>
+				&emsp; &emsp;
+				<input id="hideEdgeCheckbox" type="checkbox" checked="true">Hide edges with no children corners passing filters </input>
+			</div>
+			<div id="chart">
+			</div>
+		</div>
+			<div id="filterList" class="checkList"> </div>
+			<div id="selectionInfo"> Current selection: </div>
+		</div>
+
+
+		<script type="text/javascript">
+		var graph = new JacobianChart("chart", "filterList", "header", "selectionInfo");
+		</script>
+
+		<template id="cornerTooltipTemplate">
+			<h3 id="header" style="color: #2e6c80;"> Corner </h3>
+			<table id="propertyTable">
+			<tbody>
+			</tbody>
+			</table>
+		</template>
+  </body>
+
+</html>

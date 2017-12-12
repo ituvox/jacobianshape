@@ -1,0 +1,7 @@
+id,name,description
+1,Type I/II Filter,Ensures corners are of TypeI or TypeII. For initial corners this means gcd(a b) > 1.
+2,Edge Filter,Ensures corner is final (TypeI) or has an edge.
+3,Child Filter,Ensures corner has an edge end that leads to a child corner.
+4,Chain Filter,Ensures corner has an edge that eventually leads to a Type 1 corner (so it is part of a closed chain).
+5,mn Chain Filter,Ensures corner is part of a chain which has a valid mn family
+6,Divisibility Chain Filter,Ensures corner is part of a chain which has a valid mn family and satisfies divisibility conditions.
